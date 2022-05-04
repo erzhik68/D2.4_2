@@ -1,0 +1,207 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Try the new cross-platform PowerShell https://aka.ms/pscore6
+
+PS C:\Users\e.tleubekov\Documents\My Documents\personal\Project_Python\SkillFactory\D2.4_2> python -m venv venv
+PS C:\Users\e.tleubekov\Documents\My Documents\personal\Project_Python\SkillFactory\D2.4_2> venv\scripts\activate
+(venv) PS C:\Users\e.tleubekov\Documents\My Documents\personal\Project_Python\SkillFactory\D2.4_2> pip3 install django
+Collecting django
+  Using cached Django-4.0.4-py3-none-any.whl (8.0 MB)
+Collecting asgiref<4,>=3.4.1
+  Using cached asgiref-3.5.0-py3-none-any.whl (22 kB)
+Collecting sqlparse>=0.2.2
+  Using cached sqlparse-0.4.2-py3-none-any.whl (42 kB)
+Collecting tzdata
+  Using cached tzdata-2022.1-py2.py3-none-any.whl (339 kB)
+Installing collected packages: tzdata, sqlparse, asgiref, django
+Successfully installed asgiref-3.5.0 django-4.0.4 sqlparse-0.4.2 tzdata-2022.1
+WARNING: You are using pip version 21.1.3; however, version 22.0.4 is available.
+You should consider upgrading via the 'c:\users\e.tleubekov\documents\my documents\personal\project_python\skillfactory\d2.4_2\venv\scripts\python.exe -m pip install --upgrade pip' command
+.
+(venv) PS C:\Users\e.tleubekov\Documents\My Documents\personal\Project_Python\SkillFactory\D2.4_2> django-admin startproject NewsPaper
+(venv) PS C:\Users\e.tleubekov\Documents\My Documents\personal\Project_Python\SkillFactory\D2.4_2> cd NewsPaper
+(venv) PS C:\Users\e.tleubekov\Documents\My Documents\personal\Project_Python\SkillFactory\D2.4_2\NewsPaper> python manage.py startapp newapp
+(venv) PS C:\Users\e.tleubekov\Documents\My Documents\personal\Project_Python\SkillFactory\D2.4_2\NewsPaper> python manage.py makemigrations
+Migrations for 'newapp':
+  newapp\migrations\0001_initial.py
+    - Create model Author
+    - Create model Category
+    - Create model Post
+    - Create model PostCategory
+    - Add field post_category to post
+    - Create model Comment
+(venv) PS C:\Users\e.tleubekov\Documents\My Documents\personal\Project_Python\SkillFactory\D2.4_2\NewsPaper> python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, newapp, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying newapp.0001_initial... OK
+  Applying sessions.0001_initial... OK
+(venv) PS C:\Users\e.tleubekov\Documents\My Documents\personal\Project_Python\SkillFactory\D2.4_2\NewsPaper> python manage.py shell
+Python 3.9.6 (tags/v3.9.6:db3ff76, Jun 28 2021, 15:26:21) [MSC v.1929 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from newapp.models import *
+>>> user1 = User.objects.create(username='Peter', first_name='Max')
+>>> user2 = User.objects.create(username='Kate', first_name='Bax')
+>>> Author.objects.create(authorUser=user1)
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "C:\Users\e.tleubekov\Documents\My Documents\personal\Project_Python\SkillFactory\D2.4_2\venv\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\e.tleubekov\Documents\My Documents\personal\Project_Python\SkillFactory\D2.4_2\venv\lib\site-packages\django\db\models\query.py", line 512, in create
+    obj = self.model(**kwargs)
+  File "C:\Users\e.tleubekov\Documents\My Documents\personal\Project_Python\SkillFactory\D2.4_2\venv\lib\site-packages\django\db\models\base.py", line 559, in __init__
+    raise TypeError(
+TypeError: Author() got an unexpected keyword argument 'authorUser'
+>>> Author.objects.create(author_user=user1)
+<Author: Author object (1)>
+>>> Author.objects.create(author_user=user2)
+<Author: Author object (2)>
+>>> Category.objects.create(category_name='Sport')
+<Category: Category object (1)>
+>>> Category.objects.create(category_name='Politics')
+<Category: Category object (2)>
+>>> Category.objects.create(category_name='Culture')
+<Category: Category object (3)>
+>>> Category.objects.create(category_name='Weather')
+<Category: Category object (4)>
+>>> Post.objects.create(post_author=Author.objects.get(author_user=User.objects.get(username='Peter')), postType='NW', post_title='Inter win', post_text='Inter beat La Spezia (3:1) in the
+away match of the 33rd round of the Italian championship')
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "C:\Users\e.tleubekov\Documents\My Documents\personal\Project_Python\SkillFactory\D2.4_2\venv\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\e.tleubekov\Documents\My Documents\personal\Project_Python\SkillFactory\D2.4_2\venv\lib\site-packages\django\db\models\query.py", line 512, in create
+    obj = self.model(**kwargs)
+  File "C:\Users\e.tleubekov\Documents\My Documents\personal\Project_Python\SkillFactory\D2.4_2\venv\lib\site-packages\django\db\models\base.py", line 559, in __init__
+    raise TypeError(
+TypeError: Post() got an unexpected keyword argument 'postType'
+>>> Post.objects.create(post_author=Author.objects.get(author_user=User.objects.get(username='Peter')), post_type='NW', post_title='Inter win', post_text='Inter beat La Spezia (3:1) in the
+ away match of the 33rd round of the Italian championship')
+<Post: Post object (1)>
+>>> Post.objects.create(post_author=Author.objects.get(author_user=User.objects.get(username='Peter')), post_type='AT', post_title='Weekend weather', post_text='Thunderstorms are expected
+this weekend with strong winds. Possible intermittent rain.')
+<Post: Post object (2)>
+>>> Post.objects.create(post_author=Author.objects.get(author_user=User.objects.get(username='Kate')), post_type='AT', post_title='Headline', post_text='A meeting of G20 leaders is planned
+. The 2022 FIFA World Cup will be held in Qatar.')
+<Post: Post object (3)>
+>>> post1 = Post.objects.get(pk=1)
+>>> post2 = Post.objects.get(pk=2)
+>>> post3 = Post.objects.get(pk=3)
+>>> post1.postCategory.add(cat1, cat3)
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'Post' object has no attribute 'postCategory'
+>>> post1.post_category.add(cat1, cat3)
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'cat1' is not defined
+>>> cat1 = Category.objects.get(pk=1)
+>>> cat2 = Category.objects.get(pk=2)
+>>> cat3 = Category.objects.get(pk=3)
+>>> cat4 = Category.objects.get(pk=4)
+>>> post1.post_category.add(cat1, cat3)
+>>> post2.postCategory.add(cat3, cat4)
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'Post' object has no attribute 'postCategory'
+>>> post2.post_category.add(cat3, cat4)
+>>> post3.post_category.add(cat1, cat2)
+>>> Comment.objects.create(comment_user=User.objects.get(username='Peter'), comment_post=Post.objects.get(pk=1), comment_text='Congratulations to Inter!')
+<Comment: Comment object (1)>
+>>> Comment.objects.create(comment_user=User.objects.get(username='Kate'), comment_post=Post.objects.get(pk=1), comment_text='I am not an Inter fan.')
+<Comment: Comment object (2)>
+>>> Comment.objects.create(comment_user=User.objects.get(username='Peter'), comment_post=Post.objects.get(pk=2), comment_text='Do not forget to bring your umbrella.')
+<Comment: Comment object (3)>
+>>> Comment.objects.create(comment_user=User.objects.get(username='Kate'), comment_post=Post.objects.get(pk=2), comment_text='It is better to put on a raincoat and your hands will be free.
+')
+<Comment: Comment object (4)>
+>>> Comment.objects.create(comment_user=User.objects.get(username='Peter'), comment_post=Post.objects.get(pk=3), comment_text='Again a meeting, they only know how to gather and no use.')
+<Comment: Comment object (5)>
+>>> Comment.objects.create(comment_user=User.objects.get(username='Kate'), comment_post=Post.objects.get(pk=3), comment_text='They will save the world from those who are not included in th
+e G20!')
+<Comment: Comment object (6)>
+>>> Comment.objects.create(comment_user=User.objects.get(username='Peter'), comment_post=Post.objects.get(pk=3), comment_text='It is a pity that the championship will be held in the fall,
+just the height of work.')
+<Comment: Comment object (7)>
+>>> Post.objects.get(pk=1).like()
+>>> Post.objects.get(pk=1).like()
+>>> Post.objects.get(pk=1).like()
+>>> Post.objects.get(pk=2).like()
+>>> Post.objects.get(pk=2).like()
+>>> Post.objects.get(pk=2).like()
+>>> Post.objects.get(pk=2).dislike()
+>>> Post.objects.get(pk=3).dislike()
+>>> Post.objects.get(pk=3).dislike()
+>>> Comment.objects.get(pk=1).like()
+>>> Comment.objects.get(pk=1).like()
+>>> Comment.objects.get(pk=1).like()
+>>> Comment.objects.get(pk=1).dislike()
+>>> Comment.objects.get(pk=2).dislike()
+>>> Comment.objects.get(pk=2).like()
+>>> Comment.objects.get(pk=2).like()
+>>> Comment.objects.get(pk=3).dislike()
+>>> Comment.objects.get(pk=3).dislike()
+>>> Comment.objects.get(pk=3).like()
+>>> Comment.objects.get(pk=4).like()
+>>> Comment.objects.get(pk=4).like()
+>>> Comment.objects.get(pk=5).like()
+>>> Comment.objects.get(pk=5).dislike()
+>>> Comment.objects.get(pk=5).dislike()
+>>> Comment.objects.get(pk=5).dislike()
+>>> Comment.objects.get(pk=6).dislike()
+>>> Comment.objects.get(pk=7).dislike()
+>>> Comment.objects.get(pk=7).like()
+>>> Comment.objects.get(pk=7).like()
+>>> Comment.objects.get(pk=7).like()
+>>> Author.object.get(author_user=User.objects.get(username='Peter')).update_rating()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: type object 'Author' has no attribute 'object'
+>>> Author.objects.get(author_user=User.objects.get(username='Peter')).update_rating()
+>>> Author.objects.get(author_user=User.objects.get(username='Kate')).update_rating()
+>>> Author.objects.get(author_user=User.objects.get(username='Peter')).author_rating
+16
+>>> Author.objects.get(author_user=User.objects.get(username='Kate')).author_rating
+-4
+>>> Author.objects.all().order_by('-author_rating').values('author_user', 'author_rating')[0]
+{'author_user': 1, 'author_rating': 16}
+>>> Author.objects.all().order_by('-author_rating').values('author_user__username', 'author_rating')[0]
+{'author_user__username': 'Peter', 'author_rating': 16}
+>>> Post.objects.all().order_by('-post_rating').values('post_date_time', 'post_author__author_user__username', 'post_rating', 'post_title')[0]
+{'post_date_time': datetime.datetime(2022, 4, 26, 10, 30, 47, 278357, tzinfo=datetime.timezone.utc), 'post_author__author_user__username': 'Peter', 'post_rating': 3, 'post_title': 'Inter w
+in'}
+>>> Post.objects.all().order_by('-post_rating').values('pk', 'post_date_time', 'post_author__author_user__username', 'post_rating', 'post_title')[0]
+{'pk': 1, 'post_date_time': datetime.datetime(2022, 4, 26, 10, 30, 47, 278357, tzinfo=datetime.timezone.utc), 'post_author__author_user__username': 'Peter', 'post_rating': 3, 'post_title':
+ 'Inter win'}
+>>> Comment.objects.filter(comment_post__pk=1).values('comment_date_time', 'comment_user__username', 'comment_rating', 'comment_text')
+<QuerySet [{'comment_date_time': datetime.datetime(2022, 4, 26, 10, 41, 15, 240691, tzinfo=datetime.timezone.utc), 'comment_user__username': 'Peter', 'comment_rating': 2, 'comment_text': '
+Congratulations to Inter!'}, {'comment_date_time': datetime.datetime(2022, 4, 26, 10, 44, 3, 744349, tzinfo=datetime.timezone.utc), 'comment_user__username': 'Kate', 'comment_rating': 1, '
+comment_text': 'I am not an Inter fan.'}]>
+>>> Comment.objects.filter(comment_post__post_title='Inter win').values('comment_date_time', 'comment_user__username', 'comment_rating', 'comment_text')
+<QuerySet [{'comment_date_time': datetime.datetime(2022, 4, 26, 10, 41, 15, 240691, tzinfo=datetime.timezone.utc), 'comment_user__username': 'Peter', 'comment_rating': 2, 'comment_text': '
+Congratulations to Inter!'}, {'comment_date_time': datetime.datetime(2022, 4, 26, 10, 44, 3, 744349, tzinfo=datetime.timezone.utc), 'comment_user__username': 'Kate', 'comment_rating': 1, '
+comment_text': 'I am not an Inter fan.'}]>
+>>> Post.objects.get(pk=1).preview()
+'Inter beat La Spezia (3:1) in the away match of the 33rd round of the Italian championship...'
+>>> Post.objects.get(post_title='Inter win').preview()
+'Inter beat La Spezia (3:1) in the away match of the 33rd round of the Italian championship...'
+
